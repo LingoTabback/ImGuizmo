@@ -39,6 +39,8 @@
 #define _freea(x)
 #endif
 
+#include "LinGo/ImGui/ImGuiColors.h"
+
 // includes patches for multiview from
 // https://github.com/CedricGuillemet/ImGuizmo/issues/15
 
@@ -47,7 +49,7 @@ namespace IMGUIZMO_NAMESPACE
    static const float ZPI = 3.14159265358979323846f;
    static const float RAD2DEG = (180.f / ZPI);
    static const float DEG2RAD = (ZPI / 180.f);
-   const float screenRotateSize = 0.06f;
+   const float screenRotateSize = 0.04f;
    // scale a bit so translate axis do not touch when in universal
    const float rotationDisplayFactor = 1.2f;
 
@@ -647,12 +649,12 @@ namespace IMGUIZMO_NAMESPACE
       CenterCircleSize           = 6.0f;
 
       // initialize default colors
-      Colors[DIRECTION_X]           = ImVec4(0.666f, 0.000f, 0.000f, 1.000f);
-      Colors[DIRECTION_Y]           = ImVec4(0.000f, 0.666f, 0.000f, 1.000f);
-      Colors[DIRECTION_Z]           = ImVec4(0.000f, 0.000f, 0.666f, 1.000f);
-      Colors[PLANE_X]               = ImVec4(0.666f, 0.000f, 0.000f, 0.380f);
-      Colors[PLANE_Y]               = ImVec4(0.000f, 0.666f, 0.000f, 0.380f);
-      Colors[PLANE_Z]               = ImVec4(0.000f, 0.000f, 0.666f, 0.380f);
+      Colors[DIRECTION_X]           = LinGo::GuiColors::XAxis; //ImVec4(0.666f, 0.000f, 0.000f, 1.000f);
+      Colors[DIRECTION_Y]           = LinGo::GuiColors::YAxis; //ImVec4(0.000f, 0.666f, 0.000f, 1.000f);
+      Colors[DIRECTION_Z]           = LinGo::GuiColors::ZAxis; //ImVec4(0.000f, 0.000f, 0.666f, 1.000f);
+      Colors[PLANE_X]               = LinGo::SetAlpha(LinGo::GuiColors::XAxis, 0.38f); //ImVec4(0.666f, 0.000f, 0.000f, 0.380f);
+      Colors[PLANE_Y]               = LinGo::SetAlpha(LinGo::GuiColors::YAxis, 0.38f); //ImVec4(0.000f, 0.666f, 0.000f, 0.380f);
+      Colors[PLANE_Z]               = LinGo::SetAlpha(LinGo::GuiColors::ZAxis, 0.38f); //ImVec4(0.000f, 0.000f, 0.666f, 0.380f);
       Colors[SELECTION]             = ImVec4(1.000f, 0.500f, 0.062f, 0.541f);
       Colors[INACTIVE]              = ImVec4(0.600f, 0.600f, 0.600f, 0.600f);
       Colors[TRANSLATION_LINE]      = ImVec4(0.666f, 0.666f, 0.666f, 0.666f);
@@ -757,7 +759,7 @@ namespace IMGUIZMO_NAMESPACE
       OPERATION mOperation = OPERATION(-1);
 
       bool mAllowAxisFlip = true;
-      float mGizmoSizeClipSpace = 0.1f;
+      float mGizmoSizeClipSpace = 0.15f;
    };
 
    static Context gContext;
