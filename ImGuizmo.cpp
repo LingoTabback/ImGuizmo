@@ -641,7 +641,7 @@ namespace IMGUIZMO_NAMESPACE
       // default values
       TranslationLineThickness   = 3.0f;
       TranslationLineArrowSize   = 6.0f;
-      RotationLineThickness      = 2.0f;
+      RotationLineThickness      = 3.0f;
       RotationOuterLineThickness = 3.0f;
       ScaleLineThickness         = 3.0f;
       ScaleLineCircleSize        = 6.0f;
@@ -758,8 +758,8 @@ namespace IMGUIZMO_NAMESPACE
       int mEditingID = -1;
       OPERATION mOperation = OPERATION(-1);
 
-      bool mAllowAxisFlip = true;
-      float mGizmoSizeClipSpace = 0.15f;
+      bool mAllowAxisFlip = false;
+      float mGizmoSizeClipSpace = 0.1f;
    };
 
    static Context gContext;
@@ -1273,10 +1273,10 @@ namespace IMGUIZMO_NAMESPACE
             vec_t pos = makeVect(axisPos[axis], axisPos[(axis + 1) % 3], axisPos[(axis + 2) % 3]) * gContext.mScreenFactor * rotationDisplayFactor;
             circlePos[i] = worldToPos(pos, gContext.mMVP);
          }
-         if (!gContext.mbUsing || usingAxis)
-         {
+         //if (!gContext.mbUsing || usingAxis)
+         //{
             drawList->AddPolyline(circlePos, circleMul* halfCircleSegmentCount + 1, colors[3 - axis], false, gContext.mStyle.RotationLineThickness);
-         }
+         //}
 
          float radiusAxis = sqrtf((ImLengthSqr(worldToPos(gContext.mModel.v.position, gContext.mViewProjection) - circlePos[0])));
          if (radiusAxis > gContext.mRadiusSquareCenter)
@@ -1284,10 +1284,10 @@ namespace IMGUIZMO_NAMESPACE
             gContext.mRadiusSquareCenter = radiusAxis;
          }
       }
-      if(hasRSC && (!gContext.mbUsing || type == MT_ROTATE_SCREEN))
-      {
+      //if(hasRSC && (!gContext.mbUsing || type == MT_ROTATE_SCREEN))
+      //{
          drawList->AddCircle(worldToPos(gContext.mModel.v.position, gContext.mViewProjection), gContext.mRadiusSquareCenter, colors[0], 64, gContext.mStyle.RotationOuterLineThickness);
-      }
+      //}
 
       if (gContext.mbUsing && (gContext.mActualID == -1 || gContext.mActualID == gContext.mEditingID) && IsRotateType(type))
       {
